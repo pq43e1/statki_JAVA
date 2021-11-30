@@ -1,5 +1,3 @@
-package statki;
-
 public class Utworz {
 
 

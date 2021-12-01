@@ -5,12 +5,12 @@ public class Gracz {
     private final int numerGracza;
     private final String imieGracza;
     private final boolean czyCzlowiek;
-    private final int dataUtworzenia;
+    private final long dataUtworzenia;
     Plansza planszaWidocznaDlaGracza;
     Plansza planszaWidocznaDlaPrzeciwnika;
     Plansza planszaKolizje;
 
-    public Gracz(int numerGracza, String imieGracza, boolean czyCzlowiek, int dataUtworzenia){
+    public Gracz(int numerGracza, String imieGracza, boolean czyCzlowiek, long dataUtworzenia){
         this.numerGracza = numerGracza;
         this.imieGracza = imieGracza;
         this.czyCzlowiek = czyCzlowiek;
@@ -32,7 +32,7 @@ public class Gracz {
         return czyCzlowiek;
     }
 
-    public int getDataUtworzenia() {
+    public long getDataUtworzenia() {
         return dataUtworzenia;
     }
 

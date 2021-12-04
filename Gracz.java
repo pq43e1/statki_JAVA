@@ -4,20 +4,21 @@ public class Gracz {
 
     private final int numerGracza;
     private final String imieGracza;
-    private final boolean czyCzlowiek;
-    private final long dataUtworzenia;
-    Plansza planszaWidocznaDlaGracza;
-    Plansza planszaWidocznaDlaPrzeciwnika;
-    Plansza planszaKolizje;
+    private final byte czyCzlowiek; //0 - nie ustawione, 1 - czlowiek, 2 - komputer
+    private final String dataUtworzenia;
 
-    public Gracz(int numerGracza, String imieGracza, boolean czyCzlowiek, long dataUtworzenia){
+    Plansza widocznaDlaGracza;
+    Plansza widocznaDlaPrzeciwnika;
+    Plansza kolizje;
+
+    public Gracz(int numerGracza, String imieGracza, byte czyCzlowiek, String dataUtworzenia){
         this.numerGracza = numerGracza;
         this.imieGracza = imieGracza;
         this.czyCzlowiek = czyCzlowiek;
         this.dataUtworzenia = dataUtworzenia;
-        planszaWidocznaDlaGracza = new Plansza(imieGracza, numerGracza, 'W');
-        planszaWidocznaDlaPrzeciwnika = new Plansza(imieGracza, numerGracza, 'U');
-        planszaKolizje = new Plansza(imieGracza, numerGracza, 'K');
+        widocznaDlaGracza = new Plansza(imieGracza, numerGracza, 'W');
+        widocznaDlaPrzeciwnika = new Plansza(imieGracza, numerGracza, 'U');
+        kolizje = new Plansza(imieGracza, numerGracza, 'K');
     }
 
     public int getNumerGracza() {
@@ -28,35 +29,48 @@ public class Gracz {
         return imieGracza;
     }
 
-    public boolean isCzyCzlowiek() {
+    public byte getCzyCzlowiek() {
         return czyCzlowiek;
     }
 
-    public long getDataUtworzenia() {
+    public String getDataUtworzenia(){
         return dataUtworzenia;
     }
 
-    public void setPlanszaWidocznaDlaGracza(Plansza planszaWidocznaDlaGracza) {
-        this.planszaWidocznaDlaGracza = planszaWidocznaDlaGracza;
+
+    public void setPlanszaWidocznaDlaGracza(int x, int y, char ch) {
+        widocznaDlaGracza.setPlansza(x, y, ch);
     }
 
-    public void setPlanszaWidocznaDlaPrzeciwnika(Plansza planszaWidocznaDlaPrzeciwnika) {
-        this.planszaWidocznaDlaPrzeciwnika = planszaWidocznaDlaPrzeciwnika;
+    public void setPlanszaWidocznaDlaPrzeciwnika(int x, int y, char ch) {
+        this.widocznaDlaPrzeciwnika.setPlansza(x, y, ch);
     }
 
-    public void setPlanszaKolizje(Plansza planszaKolizje) {
-        this.planszaKolizje = planszaKolizje;
+    public void setPlanszaKolizje(int x, int y, char ch) {
+        this.kolizje.setPlansza(x, y, ch);
     }
 
-    public void getPlanszaWidocznaDlaGracza() {
-         Wyswietl.plansze(planszaWidocznaDlaGracza);
+    public void wyswietlPlanszeWidocznaDlaGracza() {
+        Wyswietl.plansze(widocznaDlaGracza);
     }
 
-    public void getPlanszaWidocznaDlaPrzeciwnika() {
-        Wyswietl.plansze(planszaWidocznaDlaPrzeciwnika);
+    public void wyswietlPlanszeWidocznaDlaPrzeciwnika() {
+        Wyswietl.plansze(widocznaDlaPrzeciwnika);
     }
 
-    public void getPlanszaKolizje() {
-        Wyswietl.plansze(planszaKolizje);
+    public void wyswietlPlanszeKolizje() {
+        Wyswietl.plansze(kolizje);
+    }
+
+    public char[][] getPlanszaWidocznaDlaGracza(){
+        return widocznaDlaGracza.getPlansza();
+    }
+
+    public char[][] getPlanszaWidocznaDlaPrzeciwnika(){
+        return widocznaDlaPrzeciwnika.getPlansza();
+    }
+
+    public char[][] getPlanszaKolizje(){
+        return kolizje.getPlansza();
     }
 }

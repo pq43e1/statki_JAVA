@@ -1,57 +1,76 @@
+package statki;
+
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Date;
 
 public class Utworz {
 
-    private int numerGracza = 1;
-    private String imieGracza;
-    private char wybor;
-    private Boolean czyCzlowiek = null;
-    
-    Date aktualnaData = new Date();
-    private long timestamp = aktualnaData.getTime();
-    
-    Scanner sc = new Scanner(System.in);
+    private static int numerGracza = 1;
+    private static String imieGracza = " ";
+    private static Byte czyCzlowiek = 0;    //0 - nie ustawione, 1 - czlowiek, 2 - komputer
+    private static String mess = "Wprowadz imie gracza numer "+numerGracza+":";
 
-    public void gracza() {
-        while(true){
-            System.out.println("Wprowadz imie gracza numer "+numerGracza+":");
-            imieGracza = sc.nextLine();
-            while(true){
-                System.out.println("Gracz ma być człowiekiem czy komputerem? C/K");
-                wybor = sc.nextLine;
-                if(wybor == 'c' || wybor == 'C'){
-                    czyCzlowiek = true;
-                    break;
-                }else if (wybor == 'k' || wybor == 'K'){
-                    czyCzlowiek = false;
-                    break;
-                }else
-                    System.out.println("Wprowadz literke c lub k by kontynowac.");
-            }
-            while(true){
-                System.out.println("Wybrales imie "+imieGracza+". Gracz będzie sterowany przez "); 
-                System.out.print(czyCzlowiek == true? "czlowieka" : "komputer");
-                System.out.print(". Czy potwierdzasz wybor? T/N");          
-                wybor = sc.nextChar();
-                    if(wybor == 'T' || wybor == 't'){
-                        break;
-                        break;
-                    }else if(wybor == 'N' || wybor == 'n'){
-                        break;
-                    }else{
-                    System.out.println("Wprowadz literke T lub N by kontynowac.");
-                    }      
-            }
+    private static Gracz g1;
+    private static Gracz g2;
+
+    private static final Date aktualnaData = new Date();
+    private static final SimpleDateFormat formatDaty = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+    private static final Scanner sc = new Scanner(System.in);
+
+    public static void gracza(){
+        System.out.println(mess);
+        String wybor = sc.nextLine();
+        if(imieGracza.equals(" ")) {
+            imieGracza = wybor;
+            mess = "Gracz ma być człowiekiem czy komputerem? C/K";
+            gracza();
         }
-        if(numerGracza == 1){
-            Gracz gracz1 = new Gracz(numerGracza, imieGracza, czyCzlowiek, timestamp);
-            numerGracza++;
-            wybor = ' ';
+        else if(czyCzlowiek == 0){
+            if(wybor.equals("c") || wybor.equals("C")){
+                czyCzlowiek = 1;
+            }else if(wybor.equals("k") || wybor.equals("K")){
+                czyCzlowiek = 2;
+            }else{
+                System.out.println("Wprowadz literke c lub k by kontynowac.");
+                gracza();
+            }
+            mess = "Wybrales imie "+imieGracza+". Gracz będzie sterowany przez "+(czyCzlowiek == 1 ? "czlowieka" : "komputer")+". \nCzy potwierdziec wybor? T/N";
+            gracza();
         }else{
-            Gracz gracz2 = new Gracz(numerGracza, imieGracza, czyCzlowiek, timestamp);  
+            if(wybor.equals("T") || wybor.equals("t")){
+                if(numerGracza == 1){
+                    g1 = new Gracz(numerGracza, imieGracza, czyCzlowiek, formatDaty.format(aktualnaData));
+                    imieGracza = " ";
+                    czyCzlowiek = 0;
+                    numerGracza++;
+                    mess = "Wprowadz imie gracza numer "+numerGracza+":";
+                    gracza();
+                }else {
+                    g2 = new Gracz(numerGracza, imieGracza, czyCzlowiek, formatDaty.format(aktualnaData));
+                    System.out.println("Gracz ["+g1.getNumerGracza()+"]: "+g1.getImieGracza()+" sterowany przez "+(g1.getCzyCzlowiek() == 1 ? "czlowieka" : "komputer")+" utworzony: "+g1.getDataUtworzenia());
+                    System.out.println("Gracz ["+g2.getNumerGracza()+"]: "+g2.getImieGracza()+" sterowany przez "+(g2.getCzyCzlowiek() == 1 ? "czlowieka" : "komputer")+" utworzony: "+g2.getDataUtworzenia());
+                }
+            }else if(wybor.equals("N") || wybor.equals("n")){
+                imieGracza = " ";
+                czyCzlowiek = 0;
+                mess = "Wprowadz imie gracza numer "+numerGracza+":";
+                gracza();
+            }else{
+                gracza();
+            }
         }
     }
 
+    public static char[][] plansze() {
 
+        char[][]  plansza = new char[11][10];
+        char pole = ' ';
+        for (char[] chars : plansza) {
+            Arrays.fill(chars, pole);
+        }
+        return plansza;
+    }
 }

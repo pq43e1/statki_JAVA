@@ -1,12 +1,11 @@
+package statki;
+
 public class Main {
 
     public static void main (String[] args){
-        Gracz gracz = new Gracz(1, "Adam", true, 20210101);
 
-        gracz.getPlanszaWidocznaDlaGracza();
-        gracz.getPlanszaKolizje();
-        gracz.getPlanszaWidocznaDlaPrzeciwnika();
-        gracz.getPlanszaWidocznaDlaGracza();
-        gracz.getPlanszaWidocznaDlaGracza();
+        Wyswietl.menu();
+        //Gracz g = new Gracz(1, "Adam", (byte) 2, "2021-11-01 12:45");
+        //new Rozmiesc(g);
     }
 }

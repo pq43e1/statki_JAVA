@@ -1,0 +1,108 @@
+public class Pomysly{
+
+     public static void main(String []args){
+        
+        Statek tab[][] = new Statek[10][10];
+        Statek s1 = new Statek(4);
+        
+        set(tab);
+      //  Statek s1 = new Statek();
+        tab[2][3] = s1;
+//        tab[2][4] = s2;
+//        tab[2][5] = new Statek();
+//        tab[2][6] = new Statek();
+        show(tab);
+        System.out.println("\n"+sprawdz(1, 1, tab));
+        
+        s1.getInfo();
+//        s2.getInfo();
+//        Statek temp = tab[2][5];
+//        temp.getInfo();
+//        temp = tab[2][6];
+//        temp.getInfo();
+     }
+     
+     public static boolean sprawdz(int x, int y, Statek[][] tab){
+         if(x >= 1 && x < tab.length-1 && y >= 1 && y < tab.length-1){
+             if(tab[x-1][y].equals('k')){
+                 
+             }
+         }
+         return false;
+     }
+     
+     public static void set(Statek[][] tab){
+         for(int i = 0 ; i < tab.length ; i++){
+             for(int j = 0 ; j < tab[i].length ; j++){
+                 tab[i][j] = new Statek(true);
+             }
+         }
+     }
+     
+     public static void show(Statek[][] tab){
+         for(int i = 0 ; i < tab.length ; i++){
+             System.out.println();
+             for(int j = 0 ; j < tab[i].length ; j++){
+                 System.out.print(tab[i][j]+", ");
+             }
+         }
+     }
+}
+
+class Statek{
+    
+    boolean czyPusty;
+    private static int no = 0;
+    private int numer = 1;
+    private int liczbaMasztow;
+    
+    java.util.ArrayList<Maszt> lista = new java.util.ArrayList<Maszt>();
+    
+    public Statek(int liczbaMasztow){
+        this.liczbaMasztow = liczbaMasztow;
+        numer += no;
+        no++;
+        dodajMaszty();
+    }
+    
+    public Statek(boolean czyPusty){
+        this.czyPusty = czyPusty;
+    }
+    
+    public void dodajMaszty(){
+            for(int i = 0 ; i < liczbaMasztow ; i++){
+            lista.add(new Maszt(no));
+        }
+    }
+    
+    public void getInfo(){
+        System.out.println("nNumer statku: "+numer);
+    }
+    
+    public String toString(){
+        if(czyPusty) return " ";
+        else return "S";
+    }
+    
+    public Maszt getMaszt(int index){
+        Maszt temp = lista.get(index);
+        return null;
+    }
+}
+
+class Maszt{
+    
+    int no;
+    int x;
+    int y;
+    
+    public Maszt(int no){
+        this.no = no;
+    }
+    
+    public int getNo(){
+        return no;
+    }
+}
+
+
